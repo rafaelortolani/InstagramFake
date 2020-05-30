@@ -43,7 +43,7 @@ export default class HomeStore {
       image: uriPhoto
     };
 
-    this.posts.push(post);
+    this.posts.unshift(post);
   }
 
   @action toogleStatus = (status: boolean) => {

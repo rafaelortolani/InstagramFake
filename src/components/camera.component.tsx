@@ -4,7 +4,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 interface Props {
-  onTakeCamera: (uri: string) => void
+  onTakeCamera: (uri?: string) => void
   status: boolean
 }
 
@@ -44,6 +44,9 @@ export class CameraApp extends Component<Props> {
                 if (status !== 'READY') return <PendingView />;
                 return (
                   <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
+                    <TouchableOpacity onPress={() => this.cancel()} style={styles.capture}>
+                      <Text style={{ fontSize: 14 }}>Cancelar</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
                       <Text style={{ fontSize: 14 }}>Fotografar</Text>
                     </TouchableOpacity>
@@ -56,7 +59,11 @@ export class CameraApp extends Component<Props> {
       </View>
     );
   }
-
+  
+  cancel = () => {
+    const {onTakeCamera} = this.props;
+    onTakeCamera();
+  }
   takePicture = async (camera) => {
     const { onTakeCamera } = this.props;
     const options = { quality: 0.5, base64: true };

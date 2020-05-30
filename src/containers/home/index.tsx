@@ -24,9 +24,11 @@ export default class Home extends Component<Props> {
 
     const { posts, photoReady, toogleStatus } = this.props.homeStore;
 
-    const uploadPhoto = (uri: string) => {
-      const { addPost } = this.props.homeStore;
-      addPost(uri);
+    const uploadPhoto = (uri?: string) => {
+      if (uri){
+        const { addPost } = this.props.homeStore;
+        addPost(uri);
+      }
       toogleStatus(false);
     }
 
