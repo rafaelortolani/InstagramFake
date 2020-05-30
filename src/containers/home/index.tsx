@@ -1,5 +1,5 @@
 import { Avatar, Button, Card, Divider, Layout, Text } from '@ui-kitten/components';
-import { Image, ScrollView, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View, Alert } from 'react-native';
 import React, { Component, } from 'react';
 import { inject, observer } from 'mobx-react';
 
@@ -24,7 +24,7 @@ export default class Home extends Component<Props> {
 
     const { posts, photoReady, toogleStatus } = this.props.homeStore;
 
-    const uploadPhoto = (uri: string) => {
+    const uploadPhoto = (uri?: string) => {
       const { addPost } = this.props.homeStore;
       if (uri) {
         Alert.alert(
@@ -41,7 +41,6 @@ export default class Home extends Component<Props> {
         );
       }
       toogleStatus(false);
-    }
     }
 
     return (
