@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React, {Component} from 'react';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
-import { RNCamera } from 'react-native-camera';
+import {RNCamera} from 'react-native-camera';
 
 interface Props {
-  onTakeCamera: (uri?: string) => void
-  status: boolean
+  onTakeCamera: (uri?: string) => void;
+  status: boolean;
 }
 
 export class CameraApp extends Component<Props> {
@@ -16,18 +16,16 @@ export class CameraApp extends Component<Props> {
           backgroundColor: 'lightgreen',
           justifyContent: 'center',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <Text>Carregando</Text>
       </View>
     );
-
 
     const status = this.props.status;
 
     return (
       <View>
-        {status &&
+        {status && (
           <View style={styles.container}>
             <RNCamera
               captureAudio={false}
@@ -38,24 +36,28 @@ export class CameraApp extends Component<Props> {
                 message: 'We need your permission to use your camera',
                 buttonPositive: 'Ok',
                 buttonNegative: 'Cancel',
-              }}
-            >
-              {({ camera, status, recordAudioPermissionStatus }) => {
+              }}>
+              {({camera, status, recordAudioPermissionStatus}) => {
                 if (status !== 'READY') return <PendingView />;
                 return (
-                  <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => this.cancel()} style={styles.capture}>
-                      <Text style={{ fontSize: 14 }}>Cancelar</Text>
+                  <View
+                    style={{flexDirection: 'row', justifyContent: 'center'}}>
+                    <TouchableOpacity
+                      onPress={() => this.cancel()}
+                      style={styles.capture}>
+                      <Text style={{fontSize: 14}}>Cancelar</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.takePicture(camera)} style={styles.capture}>
-                      <Text style={{ fontSize: 14 }}>Fotografar</Text>
+                    <TouchableOpacity
+                      onPress={() => this.takePicture(camera)}
+                      style={styles.capture}>
+                      <Text style={{fontSize: 14}}>Fotografar</Text>
                     </TouchableOpacity>
                   </View>
                 );
               }}
             </RNCamera>
-
-          </View>}
+          </View>
+        )}
       </View>
     );
   }
@@ -63,10 +65,10 @@ export class CameraApp extends Component<Props> {
   cancel = () => {
     const {onTakeCamera} = this.props;
     onTakeCamera();
-  }
-  takePicture = async (camera) => {
-    const { onTakeCamera } = this.props;
-    const options = { quality: 0.5, base64: true };
+  };
+  takePicture = async camera => {
+    const {onTakeCamera} = this.props;
+    const options = {quality: 0.5, base64: true};
     try {
       const data = await camera.takePictureAsync(options);
       onTakeCamera(data.uri);
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'black',
     flex: 0,
-    height: 600
+    height: 600,
   },
   preview: {
     flex: 1,
